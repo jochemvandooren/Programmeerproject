@@ -1,5 +1,5 @@
-# Programmeerproject
-Programmeerproject Project Proposal 
+# Programmeerproject Proposal 
+
 Features: 
 -	Creëren van een lijst van objecten (denk aan: sleutels, fiets, auto etc.)
 -	Opslaan/updaten van huidige locatie voor een object naar keuze
