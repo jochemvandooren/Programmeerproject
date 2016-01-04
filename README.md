@@ -17,4 +17,4 @@ Components:
 Potential problems:
 Een probleem in de ontwikkeling van deze app zou kunnen zijn dat de kaart niet nauwkeurig genoeg is, hierdoor zal de werking van deze app iets anders worden. 
 
-
+![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/image1.JPG)
