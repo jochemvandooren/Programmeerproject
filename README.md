@@ -5,7 +5,7 @@ Features:
 -	Creëren van een lijst van objecten (denk aan: sleutels, fiets, auto etc.)
 -	Opslaan/updaten van huidige locatie voor een object naar keuze
 -	Zoeken naar locaties van opgeslagen objecten
--
+
 Data:
 
 De enige data die ik nodig heb is de data van Google maps, dit zit al ingebouwd in Android en is makkelijk te gebruiken. 
