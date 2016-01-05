@@ -21,4 +21,4 @@ Een probleem in de ontwikkeling van deze app zou kunnen zijn dat de kaart niet n
 
 ![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/Startscreen.png)
 ![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/Mapscreen.png)
-![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/Popupscreen.png)
+![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/Updatepopup.png)
