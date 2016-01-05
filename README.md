@@ -1,5 +1,7 @@
 # Programmeerproject Proposal 
 
+Voor het programmeerproject wil ik een app maken waarmee je objecten naar keuze kan terugvinden op de kaart. Wanneer je bijvoorbeeld je fiets ergens neerzet is het de bedoeling dat je de app opent en de app de opdracht geeft om de locatie te onthouden van de fiets. Op deze manier zul je nooit meer vergeten waar je fiets (of een ander object) staat! 
+
 Features: 
 
 -	Creëren van een lijst van objecten (denk aan: sleutels, fiets, auto etc.)
