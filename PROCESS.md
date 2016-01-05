@@ -1,0 +1,3 @@
+#day2
+
+Belanrijke design keuzes aan het overwegen...
