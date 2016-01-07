@@ -7,9 +7,7 @@
 #day3
 
 - Mijn app zal nu gebruik gaan maken van beacons, zodat mijn app voldoet aan de eis dat het uitdagend genoeg moet zijn om te maken.
-
 - Ik heb besloten om de objectenlijst op te slaan in een database (Parse). Een database is makkelijker om mee om te gaan en professioneleren dan opslaan in sharedpreferences. Ook is de lijst van objecten nu gebonden aan een username. Nu kan je op meerdere apparaten de app gebruiken.
-
 - Map werkt en zoomt in op currentlocation
 - Buttons toegevoegd op de map
 
