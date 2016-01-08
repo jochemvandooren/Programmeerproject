@@ -23,6 +23,8 @@
 
 - Begin maken design document.
 - Design document afgemaakt.
+- App geupload op Github.
+- Presentatie voorbereiden.
 
 
 
