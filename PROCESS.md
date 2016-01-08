@@ -21,8 +21,8 @@
 
 #day5
 
-- Begin maken design document
--
+- Begin maken design document.
+- Design document afgemaakt.
 
 
 
