@@ -27,6 +27,7 @@
 - Presentatie voorbereiden.
 - Objectlist wordt nu geladen uit Parse en geupdate in de listview in de oncreate van mainactivity.
 - Het duurt een seconde of twee voordat de objectlist geladen is, dit is niet heel mooi.
+- Eventuele uitbreidingen voor deze app kunnen zijn: toevoegen van vrienden en het zien van hun objecten en het toevoegen van places of interest.
 
 
 
