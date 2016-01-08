@@ -19,5 +19,10 @@
 - Arrayadapter gemaakt zodat de listview wordt gevuld met een array. De array is momenteel nog hardcoded, uiteindelijk moet de array geladen worden uit Parse.
 - Ik heb een floating button in mijn app, die moet ik op de een of andere manier gaan omzetten in een '+ button'.
 
+#day5
+
+- Begin maken design document
+
+
 
 
