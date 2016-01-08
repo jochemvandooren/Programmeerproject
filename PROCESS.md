@@ -25,6 +25,8 @@
 - Design document afgemaakt.
 - App geupload op Github.
 - Presentatie voorbereiden.
+- Objectlist wordt nu geladen uit Parse en geupdate in de listview in de oncreate van mainactivity.
+-
 
 
 
