@@ -29,6 +29,9 @@
 - Het duurt een seconde of twee voordat de objectlist geladen is, dit is niet heel mooi.
 - Eventuele uitbreidingen voor deze app kunnen zijn: toevoegen van vrienden en het zien van hun objecten en het toevoegen van places of interest.
 
+#day8
 
+- Beacons verkregen.
+- Bezig met het schrijven van een functie om objecten toe te voegen aan de lijst.
 
 
