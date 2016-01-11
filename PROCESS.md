@@ -33,5 +33,7 @@
 
 - Beacons verkregen.
 - Bezig met het schrijven van een functie om objecten toe te voegen aan de lijst.
+- Gebruiker kan nu objecten toevoegen aan de objectenlijst, alleen update de listview niet direct omdat Parse in de achtergrond opslaat.
+- De query die ik heb geschreven voor Parse werkt niet meer, geen idee waarom.
 
 
