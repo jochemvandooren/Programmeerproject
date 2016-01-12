@@ -1,6 +1,7 @@
 package mprog.nl.findmystuff;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -9,6 +10,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,10 +19,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    String selectedobject;
+    LatLng lastloc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +42,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //retrieve selected object from mainactivity
+        Intent iin = getIntent();
+        Bundle b = iin.getExtras();
+
+        if (b != null) {
+            selectedobject = (String) b.get("object");
+            Log.d("mapsactivity", selectedobject);
+        }
     }
 
+    //go to mainactivity
     public void gotoHome(View view) {
         Intent intent2 = new Intent(MapsActivity.this, MainActivity.class);
         startActivity(intent2);
+    }
+
+
+    public void updateLoc(View view) {
+        //search for row with currentuser and selectedobject
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("ObjectList");
+        query.whereEqualTo("user", ParseUser.getCurrentUser().getUsername());
+        query.whereEqualTo("object", selectedobject);
+        Log.d("LCOATIE2", lastloc.toString());
+
+
+
+        final ParseGeoPoint geoPoint = new ParseGeoPoint(lastloc.latitude , lastloc.longitude );
+
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> results, ParseException e) {
+                if (e == null) {
+                    for (ParseObject result : results) {
+                        //update location of object
+                        result.put("loc", geoPoint);
+                        result.saveInBackground();
+
+
+                    }
+                } else {
+                    Log.d("mapsactivity", "query lukt niet");
+                }
+
+            }
+        });
+
+
     }
 
 
@@ -90,11 +145,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Create a LatLng object for the current location
         LatLng myloc = new LatLng(latitude, longitude);
+        Log.d("locatie1 =", myloc.toString());
 
         // Show the current location in Google Map
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myloc));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
 
+        //set locationlistener
+        mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+
+
+        //set markers for objects
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("ObjectList");
+        query.whereEqualTo("user", ParseUser.getCurrentUser().getUsername());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> results, ParseException e) {
+                if (e == null) {
+                    for (ParseObject result : results) {
+                        //retrieve locations of objects
+                        if (result.getParseGeoPoint("loc") != null) {
+                            Log.d("Geopoints", result.getParseGeoPoint("loc").toString());
+                            //convert geopoint to location and place marker
+                            LatLng markerloc = new LatLng(result.getParseGeoPoint("loc").getLatitude(), result.getParseGeoPoint("loc").getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(markerloc).title(result.getString("object")));
+                            result.saveInBackground();
+                        }
+
+
+                    }
+                } else {
+                    Log.d("mapsactivity", "query lukt niet");
+                }
+
+            }
+        });
+
+
+
     }
+
+    //enable tracking location changes
+    private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+        @Override
+        public void onMyLocationChange(Location location) {
+            lastloc = new LatLng(location.getLatitude(), location.getLongitude());
+            Log.d("LCOATIE", lastloc.toString());
+
+            if(mMap != null){
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastloc, 16.0f));
+            }
+        }
+    };
 }
 

@@ -29,11 +29,17 @@
 - Het duurt een seconde of twee voordat de objectlist geladen is, dit is niet heel mooi.
 - Eventuele uitbreidingen voor deze app kunnen zijn: toevoegen van vrienden en het zien van hun objecten en het toevoegen van places of interest.
 
-#day8
+#day6
 
 - Beacons verkregen.
 - Bezig met het schrijven van een functie om objecten toe te voegen aan de lijst.
 - Gebruiker kan nu objecten toevoegen aan de objectenlijst, alleen update de listview niet direct omdat Parse in de achtergrond opslaat.
 - De query die ik heb geschreven voor Parse werkt niet meer, geen idee waarom.
+- Parse doet het weer en de listview werkt ook naar behoren.
+
+#day7
+- Locatie kan opgeslagen worden in Parse als geopoint. 
+- Locatie kan nog niet geupdate worden.
+- Locatie kan nu geupdate worden en er worden markers geplaats op de kaart waar objecten een locatie hebben. (markers hebben de naam van het object)
 
 
