@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -39,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
 
         //create arrayadapter and list for objects
         objectList = new ArrayList<String>();
@@ -84,6 +83,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+
+                //remove object from list and Parse
+                String selected=(String)parent.getItemAtPosition(position);
+                objectList.remove(selected);
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("ObjectList");
+                query.whereEqualTo("user", ParseUser.getCurrentUser().getUsername());
+                query.whereEqualTo("object", selected);
+
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> results, ParseException e) {
+                        if (e == null) {
+                            for (ParseObject result : results) {
+                                //add all the objects to the list
+                                try {
+                                    result.delete();
+                                } catch (ParseException e1) {
+                                    e1.printStackTrace();
+                                }
+                                result.saveInBackground();
+                            }
+
+                        } else {
+                            Log.d("mainactivity", "query lukt niet");
+                        }
+                    }
+                });
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
 
     }
 
@@ -117,12 +152,20 @@ public class MainActivity extends AppCompatActivity {
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //convert input to string and upload to Parse/add to array
-                String object = input.getText().toString();
-                ParseObject dataObject = new ParseObject("ObjectList");
-                dataObject.put("user", ParseUser.getCurrentUser().getUsername());
-                dataObject.put("object", object);
-                dataObject.saveInBackground();
-                objectList.add(object);
+                String object = input.getText().toString().toLowerCase();
+                //check if object already exists
+                if (objectList.contains(object)){
+                    Log.d("mainactivityadd", "mag niet dezelfde naam hebben");
+                    Toast.makeText(getApplicationContext(), "There already is an object named "+object,
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    ParseObject dataObject = new ParseObject("ObjectList");
+                    dataObject.put("user", ParseUser.getCurrentUser().getUsername());
+                    dataObject.put("object", object);
+                    dataObject.saveInBackground();
+                    objectList.add(object);
+                }
 
             }
         });

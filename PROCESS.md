@@ -42,4 +42,28 @@
 - Locatie kan nog niet geupdate worden.
 - Locatie kan nu geupdate worden en er worden markers geplaats op de kaart waar objecten een locatie hebben. (markers hebben de naam van het object)
 
+#day8
+- Wanneer een object geselecteerd wordt, zou de map gecentreerd moeten worden op het object.
+- De locatie van het object wordt opgehaald uit Parse. Gegevens uit Parse worden op de achtergrond opgehaald. Dat betekent dat de rest van de code uitgevoerd wordt terwijl Parse bezig is. Hierdoor kreeg ik erg veel nullpointers en ik heb het opgelost met een runnable.
+- Locaties werken nu.
+- Onverklaarbaar probleem met Parse: ik kan objecten toevoegen zonder enig probleem. Wanneer ik locaties ga toevoegen aan Parse daarentegen, laadt Parse helemaal niks meer... Het ziet er naar uit dat het te maken heeft met een limiet op Parse, ik weet het niet zeker.
+- Het ligt aan Parse. (bevestigd door een assistent) Ik ga me hier niet druk over maken.
+- Textview toegevoegd die laat zien welk object aangeklikt is.
+
+#day9
+- Geprobeerd de interface mooier te maken zonder succes.
+
+#day10
+
+- Ziek, niet kunnen werken aan het project.
+
+#day11
+
+- Objecten kunnen verwijderd worden uit de lijst.
+- Ik houd de objectenlijst zowel bij in een String array als in Parse, zodat de objectenlijst direct geupdate kan worden. 
+- Interface vernieuwd met nieuwe icoontjes en kleuren.
+- Objecten mogen niet dezelde naam hebben, dit moet ik toevoegen.
+- functionaliteiten toegevoegd om dubbele objecten te voorkomen en feedback toegevoegd voor de gebruiker.
+
+
 

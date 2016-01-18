@@ -7,11 +7,13 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,7 +34,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     String selectedobject;
+    LatLng selectedobjectloc;
     LatLng lastloc;
+    LatLng myloc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (b != null) {
             selectedobject = (String) b.get("object");
             Log.d("mapsactivity", selectedobject);
+            //display selected object
+            TextView tv = (TextView) this.findViewById(R.id.textView2);
+            tv.setText("Selected: " + selectedobject);
+        } else{
+            TextView tv = (TextView) this.findViewById(R.id.textView2);
+            tv.setText("No object selected");
         }
+
+
+        //view.invalidate();  // for refreshment
     }
 
     //go to mainactivity
@@ -67,23 +80,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         query.whereEqualTo("object", selectedobject);
         Log.d("LCOATIE2", lastloc.toString());
 
-
-
         final ParseGeoPoint geoPoint = new ParseGeoPoint(lastloc.latitude , lastloc.longitude );
 
-
+        //update location of the object where user == currentuser and object == selectedobject
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> results, ParseException e) {
                 if (e == null) {
                     for (ParseObject result : results) {
-                        //update location of object
+                        //update location of object in Parse
                         result.put("loc", geoPoint);
                         result.saveInBackground();
+                        //also add a marker on the map
+                        mMap.addMarker(new MarkerOptions().position(lastloc).title(selectedobject));
+                        //STILL HAVE TO DELETE THE OTHER MARKER
+
 
 
                     }
                 } else {
-                    Log.d("mapsactivity", "query lukt niet");
+                    Log.d("mapsactivity.updateloc", "query lukt niet");
                 }
 
             }
@@ -105,11 +120,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         // Enable MyLocation Layer of Google Map
         mMap.setMyLocationEnabled(true);
@@ -144,12 +154,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double longitude = myLocation.getLongitude();
 
         // Create a LatLng object for the current location
-        LatLng myloc = new LatLng(latitude, longitude);
-        Log.d("locatie1 =", myloc.toString());
+        myloc = new LatLng(latitude, longitude);
 
-        // Show the current location in Google Map
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(myloc));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
 
         //set locationlistener
         mMap.setOnMyLocationChangeListener(myLocationChangeListener);
@@ -169,16 +175,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             LatLng markerloc = new LatLng(result.getParseGeoPoint("loc").getLatitude(), result.getParseGeoPoint("loc").getLongitude());
                             mMap.addMarker(new MarkerOptions().position(markerloc).title(result.getString("object")));
                             result.saveInBackground();
+                            //retrieve location of selectedobject
+                            if (result.getString("object").equals(selectedobject)) {
+                                selectedobjectloc = new LatLng(result.getParseGeoPoint("loc").getLatitude(), result.getParseGeoPoint("loc").getLongitude());
+                            }
                         }
 
 
                     }
                 } else {
                     Log.d("mapsactivity", "query lukt niet");
+                    Log.d("mapsactivity", e.toString());
                 }
 
             }
         });
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                // Set up map camera based on selected object
+                if (selectedobjectloc == null) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(myloc));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+                }
+                else{
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(selectedobjectloc));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+                }
+            }
+        }, 2000);
+
 
 
 
@@ -191,9 +220,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             lastloc = new LatLng(location.getLatitude(), location.getLongitude());
             Log.d("LCOATIE", lastloc.toString());
 
-            if(mMap != null){
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastloc, 16.0f));
-            }
+            //if(mMap != null){
+            //    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastloc, 16.0f));
+            //}
         }
     };
 }
