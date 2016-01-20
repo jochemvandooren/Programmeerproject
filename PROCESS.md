@@ -65,5 +65,15 @@
 - Objecten mogen niet dezelde naam hebben, dit moet ik toevoegen.
 - functionaliteiten toegevoegd om dubbele objecten te voorkomen en feedback toegevoegd voor de gebruiker.
 
+#day12
+
+- Bij het updaten van een object wordt nu ook de laatste marker verwijderd.
+- Wanneer er geen object geslecteerd is wordt de update location button verwijderd van de kaart
+
+#day13
+
+- Beacons werken nu met de app en geven een melding wanneer de beacons uit range zijn (1.5m)
+- Ik wil de locationlistener van google maps gebruiken in een andere class maar dit is niet mogelijk. Een oplossing is om de locationlistener een aparte class te geven maar dit kost te veel tijd om nu nog te veranderen.
+- Bluetooth flikkert aan en uit elke 5 seconden, de afgelopen uren gebeurde dit niet. 
 
 
