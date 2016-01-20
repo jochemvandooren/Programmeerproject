@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -46,10 +47,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Button updateButton = (Button) findViewById(R.id.update);
 
         //retrieve selected object from mainactivity
         Intent iin = getIntent();
         Bundle b = iin.getExtras();
+
 
         if (b != null) {
             selectedobject = (String) b.get("object");
@@ -60,10 +63,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else{
             TextView tv = (TextView) this.findViewById(R.id.textView2);
             tv.setText("No object selected");
+            //remove update location button if no object is selected
+            updateButton.setVisibility(View.GONE);
         }
-
-
-        //view.invalidate();  // for refreshment
     }
 
     //go to mainactivity
@@ -72,8 +74,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startActivity(intent2);
     }
 
+    public void updateMarkers(){
+    //set markers for objects
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("ObjectList");
+    query.whereEqualTo("user", ParseUser.getCurrentUser().getUsername());
+    query.findInBackground(new FindCallback<ParseObject>() {
+        public void done(List<ParseObject> results, ParseException e) {
+            if (e == null) {
+                for (ParseObject result : results) {
+                    //retrieve locations of objects
+                    if (result.getParseGeoPoint("loc") != null) {
+                        Log.d("Geopoints", result.getParseGeoPoint("loc").toString());
+                        //convert geopoint to location and place marker
+                        LatLng markerloc = new LatLng(result.getParseGeoPoint("loc").getLatitude(), result.getParseGeoPoint("loc").getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(markerloc).title(result.getString("object")));
+                        result.saveInBackground();
+                        //retrieve location of selectedobject
+                        if (result.getString("object").equals(selectedobject)) {
+                            selectedobjectloc = new LatLng(result.getParseGeoPoint("loc").getLatitude(), result.getParseGeoPoint("loc").getLongitude());
+                        }
+                    }
 
-    public void updateLoc(View view) {
+
+                }
+            } else {
+                Log.d("mapsactivity", "query lukt niet");
+                Log.d("mapsactivity", e.toString());
+            }
+
+        }
+    });}
+
+
+    public void updateLoc(final View view) {
         //search for row with currentuser and selectedobject
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ObjectList");
         query.whereEqualTo("user", ParseUser.getCurrentUser().getUsername());
@@ -90,8 +123,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         //update location of object in Parse
                         result.put("loc", geoPoint);
                         result.saveInBackground();
-                        //also add a marker on the map
-                        mMap.addMarker(new MarkerOptions().position(lastloc).title(selectedobject));
+                        //remove markers and update markers.
+                        mMap.clear();
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateMarkers();
+                            }
+                        }, 2000);
+
+                        updateMarkers();
+                        //mMap.addMarker(new MarkerOptions().position(lastloc).title(selectedobject));
                         //STILL HAVE TO DELETE THE OTHER MARKER
 
 
@@ -149,48 +192,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get latitude of the current location
         double latitude = myLocation.getLatitude();
-
         // Get longitude of the current location
         double longitude = myLocation.getLongitude();
-
         // Create a LatLng object for the current location
         myloc = new LatLng(latitude, longitude);
-
 
         //set locationlistener
         mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
-
-        //set markers for objects
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("ObjectList");
-        query.whereEqualTo("user", ParseUser.getCurrentUser().getUsername());
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> results, ParseException e) {
-                if (e == null) {
-                    for (ParseObject result : results) {
-                        //retrieve locations of objects
-                        if (result.getParseGeoPoint("loc") != null) {
-                            Log.d("Geopoints", result.getParseGeoPoint("loc").toString());
-                            //convert geopoint to location and place marker
-                            LatLng markerloc = new LatLng(result.getParseGeoPoint("loc").getLatitude(), result.getParseGeoPoint("loc").getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(markerloc).title(result.getString("object")));
-                            result.saveInBackground();
-                            //retrieve location of selectedobject
-                            if (result.getString("object").equals(selectedobject)) {
-                                selectedobjectloc = new LatLng(result.getParseGeoPoint("loc").getLatitude(), result.getParseGeoPoint("loc").getLongitude());
-                            }
-                        }
-
-
-                    }
-                } else {
-                    Log.d("mapsactivity", "query lukt niet");
-                    Log.d("mapsactivity", e.toString());
-                }
-
-            }
-        });
-
+        updateMarkers();
         new Handler().postDelayed(new Runnable() {
 
             @Override

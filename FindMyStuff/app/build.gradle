@@ -5,6 +5,7 @@ android {
     buildToolsVersion "23.0.0"
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "mprog.nl.findmystuff"
         minSdkVersion 18
         targetSdkVersion 23
@@ -27,4 +28,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parse-android:1.+'
+    compile 'com.estimote:sdk:0.9.7@aar'
+    compile 'com.android.support:multidex:1.0.0'
 }

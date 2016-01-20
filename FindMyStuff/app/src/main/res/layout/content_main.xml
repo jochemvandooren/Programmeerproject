@@ -30,9 +30,11 @@
         android:onClick="gotoMap"
         android:src="@drawable/ic_map"
 
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp" />
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -41,7 +43,8 @@
         android:background="@color/colorPrimary"
         android:layout_below="@+id/textView"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:layout_above="@+id/map" />
 
 </RelativeLayout>
