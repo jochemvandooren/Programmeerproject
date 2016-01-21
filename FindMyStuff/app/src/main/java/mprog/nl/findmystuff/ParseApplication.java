@@ -7,7 +7,7 @@ import com.parse.Parse;
 /**
  * Created by Jochem on 6-1-2016.
  */
-public class ParseApplication extends BeaconsActivity {
+public class ParseApplication extends Application {
 
     @Override
     public void onCreate() {

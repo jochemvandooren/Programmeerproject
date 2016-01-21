@@ -60,10 +60,12 @@ public class LoginActivity extends AppCompatActivity {
         ParseUser.logInInBackground(username.getText().toString(), password.getText().toString(), new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
+                    Toast.makeText(getApplicationContext(), "Login successful!",
+                            Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getApplicationContext(), e.toString(),
+                    Toast.makeText(getApplicationContext(), "Enter a valid username and password!",
                             Toast.LENGTH_LONG).show();
                     // Signup failed. Look at the ParseException to see what happened.
                 }

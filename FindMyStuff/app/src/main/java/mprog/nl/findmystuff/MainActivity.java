@@ -47,12 +47,11 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
-
         //retrieve parseobject based on currentuser
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ObjectList");
         query.whereEqualTo("user", ParseUser.getCurrentUser().getUsername());
 
-        //fill array with objects from user
+        //fill array with objects and update listview
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> results, ParseException e) {
                 if (e == null) {
@@ -77,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                     long id) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
                 String selected=(String)parent.getItemAtPosition(position);
+                //remember selected object in next acitivity
                 intent.putExtra("object", selected);
                 Log.d("mainactivity", selected+ ": is aangeklikt");
                 startActivity(intent);
@@ -141,11 +141,12 @@ public class MainActivity extends AppCompatActivity {
     public void addObject(View view){
         //create dialog text
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("What object to you want to track?");
+        alert.setTitle("What object do you want to track?");
         alert.setMessage("You can add an object by filling in the form and pressing OK.");
 
         // Set an EditText view to get user input
         final EditText input = new EditText(this);
+
         alert.setView(input);
 
         //Click OK in alert dialog
@@ -154,11 +155,17 @@ public class MainActivity extends AppCompatActivity {
                 //convert input to string and upload to Parse/add to array
                 String object = input.getText().toString().toLowerCase();
                 //check if object already exists
-                if (objectList.contains(object)){
-                    Log.d("mainactivityadd", "mag niet dezelfde naam hebben");
-                    Toast.makeText(getApplicationContext(), "There already is an object named "+object,
+                if (objectList.contains(object)) {
+                    Toast.makeText(getApplicationContext(), "There already is an object named " + object,
+                            Toast.LENGTH_LONG).show();
+                } else if (object.contains(" ")) {
+                    Toast.makeText(getApplicationContext(), "Your object cannot contain whitespace!",
+                            Toast.LENGTH_LONG).show();
+                } else if (object.contentEquals("")){
+                    Toast.makeText(getApplicationContext(), "Your object cannot be nothing.",
                             Toast.LENGTH_LONG).show();
                 }
+
                 else {
                     ParseObject dataObject = new ParseObject("ObjectList");
                     dataObject.put("user", ParseUser.getCurrentUser().getUsername());
