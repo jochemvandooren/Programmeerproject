@@ -86,4 +86,16 @@ Beacons:
 
 Bij het toevoegen van de beacons ben ik een groot aantal problemen tegen gekomen. In de eerste instantie werkten de beacons op mijn originele android device. (device 1) Ik heb het voor elkaar gekregen om mijn app te kunnen laten detecteren wanneer een beacon in een bepaalde range kwam. Dit werkte prima totdat device1 een error gaf. De error was een error in de SDK van Estimote, de error zorgde ervoor dat de bluetooth van device1 constant uit- en ingeschakeld werd. Omdat deze error niet gefixt kon worden ben ik overgestapt op een ander device. (device2) Ook op device2 is het één keer gelukt om een beacon te detecteren binnen een bepaalde range, maar al vrij snel was dit ook al niet meer mogelijk. De beacons konden niet meer gevonden worden (ook niet met de officiele estimote app terwijl mijn iphone dit wel kon). Dit probleem is een raadsel en is tot nu toe niet opgelost. Hierdoor ben ik helaas genoodzaakt om de functionaliteit met betrekkking tot de beacons volledig af te schaffen. Nu zal ik proberen nog een extra functionaliteit toe te voegen in de vorm van afbeeldingen toevoegen aan het object.
 
+#day15
+
+- Toegevoegd dat foto's gemaakt kunnen en upgeload worden op Parse.
+- Ik probeer nu uit te zoeken hoe ik de foto's kan plaatsen op mijn Google map.
+
+#day16
+
+- Foto's kunnen gemaakt worden en geladen op Parse maar ik krijg het niet voor elkaar om foto's te kunnen halen uit Parse omdat ik dan mijn hele listview moet omgooien... Dat kost in deze fase te veel tijd.
+- Ik moet de markers opslaan in een list, als dit goed lukt kan ik het voor elkaar krijgen om infowindows aan markers toe te voegen, dan lukt het eindelijk om afbeeldingen toe te voegen aan de map.
+- Het is gelukt om afbeeldingen toe te voegen aan de map maar niet de afbeeldingen die ik uit Parse wil laden...
+
+
 
