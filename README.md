@@ -1,24 +1,11 @@
-# Programmeerproject Proposal 
+# Find My Stuff
 
-Voor het programmeerproject wil ik een app maken waarmee je objecten naar keuze kan terugvinden op de kaart. Wanneer je bijvoorbeeld je fiets ergens neerzet is het de bedoeling dat je de app opent en de app de opdracht geeft om de locatie te onthouden van de fiets. Op deze manier zul je nooit meer vergeten waar je fiets (of een ander object) staat! 
+De app Find My Stuff geeft de gebruiker de mogelijkheid om objecten toe te voegen aan een lijst. Wanneer een object is toegevoegd aan de lijst, kan de gebruiker de locatie opslaan van het object en een foto toevoegen aan het object. Vervolgens kan de gebruiker object selecteren die in de lijst staan om de locatie en de foto te kunnen zien op de kaart. Hiermee zal de gebruiker nooit meer objecten kwijtraken!
 
-Features: 
+![](doc/Login_view.png)
+![](doc/List_view.png)
+![](doc/No_object_selected.png)
+![](doc/Object_selected.png)
+![](doc/Marker_clicked.png)
+![](doc/Add_object_dialog.png)
 
--	Creëren van een lijst van objecten (denk aan: sleutels, fiets, auto etc.)
--	Opslaan/updaten van huidige locatie voor een object naar keuze
--	Zoeken naar locaties van opgeslagen objecten
-
-Data:
-
-De enige data die ik nodig heb is de data van Google maps, dit zit al ingebouwd in Android en is makkelijk te gebruiken. 
-
-Components:
-
--	Lijst met objecten: de gebruiker kan aan een lijst een object toevoegen met de locatie van het object. 
--	Map: de gebruiker ziet op de map alle objecten die opgeslagen zijn in de lijst met de corresponderende locatie. 
-Potential problems:
-Een probleem in de ontwikkeling van deze app zou kunnen zijn dat de kaart niet nauwkeurig genoeg is, hierdoor zal de werking van deze app iets anders worden. 
-
-![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/Startscreen.png)
-![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/Mapscreen.png)
-![](https://github.com/jochemvandooren/Programmeerproject/blob/master/doc/Updatepopup.png)
