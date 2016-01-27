@@ -96,6 +96,12 @@ Bij het toevoegen van de beacons ben ik een groot aantal problemen tegen gekomen
 - Foto's kunnen gemaakt worden en geladen op Parse maar ik krijg het niet voor elkaar om foto's te kunnen halen uit Parse omdat ik dan mijn hele listview moet omgooien... Dat kost in deze fase te veel tijd.
 - Ik moet de markers opslaan in een list, als dit goed lukt kan ik het voor elkaar krijgen om infowindows aan markers toe te voegen, dan lukt het eindelijk om afbeeldingen toe te voegen aan de map.
 - Het is gelukt om afbeeldingen toe te voegen aan de map maar niet de afbeeldingen die ik uit Parse wil laden...
+- Afbeeldingen kunnnen uit Parse geladen worden maar het lukt niet perfect, hier ben ik de hele dag mee bezig geweest zonder succes.
 
+#day17
+
+- Ik laad de images nu niet op het moment dat ik een marker aanklik, maar op het moment dat ik mapsactivity opstart. Op deze manier omzijl ik het probleem met het asynchroon ophalen van de images.
+- Images worden ook meteen geladen na het maken van een nieuwe foto. 
+- Toegevoegd dat users en passwords langer moeten zijn dan 4 characters. Ook nog wat feedback toegevoegd voor de user en wat geupdate aan het design.
 
 
