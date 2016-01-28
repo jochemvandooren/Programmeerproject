@@ -15,4 +15,5 @@ Features
 ![](doc/Object selected.png)
 ![](doc/Marker clicked.png)
 ![](doc/Add object dialog.png)
+![](doc/Delete object.png)
 
