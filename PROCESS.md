@@ -104,4 +104,12 @@ Bij het toevoegen van de beacons ben ik een groot aantal problemen tegen gekomen
 - Images worden ook meteen geladen na het maken van een nieuwe foto. 
 - Toegevoegd dat users en passwords langer moeten zijn dan 4 characters. Ook nog wat feedback toegevoegd voor de user en wat geupdate aan het design.
 
+#day18
+
+- Begin gemaakt aan het verslag
+
+#day19
+
+- Verslag afgemaakt en alles op Github gezet.
+
 
