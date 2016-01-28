@@ -12,6 +12,7 @@ De app Find My Stuff geeft de gebruiker de mogelijkheid om objecten toe te voege
 - Beacons
 
 Het was de bedoeling dat de app een functionaliteit zou hebben door middel van het gebruiken van beacons. De beacons maakten gebruik van de Estimote SDK. Om de uitdagingen te beschrijven die ik ben tegen gekomen zal ik de devices die ik heb gebruikt een naam geven als volgt: Iphone 5S = device1, Samsung Galaxy S3 = device2 en Motorola E = device3.
+
 Het is gelukt om de beacons te connecten met device1 en device2 via de officiële Estimote app. Hierna is het gelukt om de beacons te laten connecten met device2 via de Find My Stuff app. Het was op een gegeven moment mogelijk voor de Find My Stuff app op device2 om te kunnen detecteren wanneer de beacons in of uit een bepaalde range (1,5m) waren. Een dag later was dit echter niet meer mogelijk. (zonder dat de Java file van de beacons veranderd was!) Device2 gaf problemen met de bluetooth die er voorheen niet waren. De bluetooth van het apparaat werd telkens in- en uitgeschakeld, wat het gebruik van bluetooth onmogelijk maakte. Ook de officiële Estimote app deed het niet meer op device2. Een belangrijk detail is dat de Estimote app het wél altijd heeft blijven doen op device1. Jaap heeft mij een leentelefoon (device3) gegeven om daarmee verder te gaan. Met device3 is hetzelfde gebeurd als device2, in de eerste instantie deed alles het naar behoren en op een gegeven kreeg ik ook op deze device het bluetooth probleem wat device2 ook had. Het zag er naar uit dat het een probleem was met de Estimote SDK. 
 
 - InfoWindow Google Maps
@@ -23,6 +24,8 @@ In de eerste instantie wilde ik de foto van een object laden wanneer er op de ma
 - Parse
 
 Parse voert alle queries asynchroon uit, hierdoor heb ik er voor gekozen om een handler te gebruiken om mijn listview te updaten. Hierdoor is er een kleine delay in het vullen van mijn listview. Dit is niet heel netjes maar het is niet iets waar de gebruiker zich aan zal storen. Hetzelfde geldt voor de markers: wanneer de map geopend wordt, moeten de markers eerst geladen worden voordat de map gecentreerd kan worden op de locatie van de marker. Hier is ook gebruik gemaakt van een handler om nullpointers te voorkomen.
+
+Op een gegeven moment heeft Parse moeite gehad met het laden van de objectenlijst wanneer de lijst groter werd dan vijf objecten. Wanneer de lijst meer dan vijf objecten bevatte, laadde Parse helemaal niks meer. Dit probleem heeft zichzelf opgelost.
 
 
 
