@@ -9,19 +9,22 @@ De app Find My Stuff geeft de gebruiker de mogelijkheid om objecten toe te voege
 
 ###Uitdagingen
 
-- ######Beacons
+Bij het ontwikkelen van Find My Stuff zijn er een aantal onverwachte problemen ontstaan. De problemen zijn ontstaan bij het toevoegen van beacons, infowindows en het gebruiken van Parse.
 
-Het was de bedoeling dat de app een functionaliteit zou hebben door middel van het gebruiken van beacons. De beacons maakten gebruik van de Estimote SDK. Om de uitdagingen te beschrijven die ik ben tegen gekomen zal ik de devices die ik heb gebruikt een naam geven als volgt: Iphone 5S = device1, Samsung Galaxy S3 = device2 en Motorola E = device3.
+- Beacons
 
-Het is gelukt om de beacons te connecten met device1 en device2 via de officiële Estimote app. Hierna is het gelukt om de beacons te laten connecten met device2 via de Find My Stuff app. Het was op een gegeven moment mogelijk voor de Find My Stuff app op device2 om te kunnen detecteren wanneer de beacons in of uit een bepaalde range (1,5m) waren. Een dag later was dit echter niet meer mogelijk. (zonder dat de Java file van de beacons veranderd was!) Device2 gaf problemen met de bluetooth die er voorheen niet waren. De bluetooth van het apparaat werd telkens in- en uitgeschakeld, wat het gebruik van bluetooth onmogelijk maakte. Ook de officiële Estimote app deed het niet meer op device2. Een belangrijk detail is dat de Estimote app het wél altijd heeft blijven doen op device1. Jaap heeft mij een leentelefoon (device3) gegeven om daarmee verder te gaan. Met device3 is hetzelfde gebeurd als device2, in de eerste instantie deed alles het naar behoren en op een gegeven kreeg ik ook op deze device het bluetooth probleem wat device2 ook had. Het zag er naar uit dat het een probleem was met de Estimote SDK. 
+Find My stuff had beacons moeten gebruiken om de functionaliteit van de app te vergroten. De beacons zouden de app de mogelijkheid moeten geven om locaties van objecten te updaten op de achtergrond, zonder input van de gebruiker.De beacons maakten gebruik van de Estimote SDK. Om de uitdagingen te omschrijven worden er drie devices gedefiniëerd: Iphone 5S (iOS) = device1, Samsung Galaxy S3 (Android) = device2 en Motorola E (Android) = device3.
 
-- ######InfoWindow Google Maps
+Het is gelukt om de beacons te connecten met device1 en device2 via de officiële Estimote app. Hierna is het gelukt om de beacons te laten connecten met device2 via de Find My Stuff app. Het was op een gegeven moment mogelijk voor de Find My Stuff app op device2 om te kunnen detecteren wanneer de beacons in of uit een bepaalde range (1,5m) waren. Een dag later was dit echter niet meer mogelijk. (zonder dat de Java file van de beacons veranderd was!) Device2 gaf problemen met de bluetooth die er voorheen niet waren. De bluetooth van het apparaat werd telkens in- en uitgeschakeld, wat het gebruik van bluetooth onmogelijk maakte. Ook de officiële Estimote app deed het niet meer op device2. Een belangrijk detail is dat de Estimote app het wél altijd heeft blijven doen op device1. Jaap heeft mij een leentelefoon (device3) gegeven om daarmee verder te gaan. Met device3 is hetzelfde gebeurd als device2, in de eerste instantie deed alles het naar behoren en op een gegeven kreeg ook deze device het bluetooth probleem wat device2 ook had. Het zag er naar uit dat het een probleem was met de Estimote SDK. 
 
-Omdat de features van de beacons niet meer mogelijk waren, heb ik voor een nieuwe feature gekozen dat de gebruiker foto's kan toevoegen aan de objecten. Bij deze feature heb ik ervoor gekozen dat de gebruiker de foto's terug kan zien op de kaart en niet op de listview. Helaas was er niet genoeg tijd om de foto's ook te laten zien in de listview, omdat deze feature erg laat is toegevoegd aan het project. De uitdaging om de foto's te laten zien op de kaart lag in het verkrijgen van de foto's van Parse. Parse heeft namelijk alleen de optie om queries in de background te doen. 
+- InfoWindow Google Maps
 
-In de eerste instantie wilde ik de foto van een object laden wanneer er op de marker geklikt werd, maar de infowindow werd al gecreëerd voordat de foto gedownload was van Parse. Dit was niet te voorkomen dus worden de foto's van alle objecten van de gebruiker geladen bij het openen van de map. 
+Omdat het toevoegen van de beacons onmogelijk bleek te zijn, is er een nieuwe feature toegevoegd aan Find My Stuff. De gebruiker kan de mogelijkheid hebben om foto's toe te voegen aan objecten. Omdat deze feature erg laat toegevoegd is, kan de gebruiker de foto's alleen maar zien op de kaart en niet in de listview. Het was te tijdsintensief om in het laatste stadium van de app nog de hele bestaande listview om te gooien. 
 
-- ######Parse
+In de eerste instantie zou er een foto geladen moeten worden uit Parse wanneer er geklikt werd op een marker. Helaas is dit niet gelukt omdat Parse queries in de achtergrond doet. Hierdoor werd de infowindow gecreëerd voordat de foto geladen was uit Parse. De oplossing was om álle foto's van de gebruiker te laden wanneer de map geopend wordt. Dit is niet ideaal wanneer een gebruiker erg veel objecten heeft omdat dat erg veel tijd kan kosten.
+
+
+- Parse
 
 Parse voert alle queries asynchroon uit, hierdoor heb ik er voor gekozen om een handler te gebruiken om mijn listview te updaten. Hierdoor is er een kleine delay in het vullen van mijn listview. Dit is niet heel netjes maar het is niet iets waar de gebruiker zich aan zal storen. Hetzelfde geldt voor de markers: wanneer de map geopend wordt, moeten de markers eerst geladen worden voordat de map gecentreerd kan worden op de locatie van de marker. Hier is ook gebruik gemaakt van een handler om nullpointers te voorkomen.
 
