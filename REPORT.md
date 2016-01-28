@@ -35,6 +35,12 @@ Op een gegeven moment heeft Parse moeite gehad met het laden van de objectenlijs
 ![](doc/MainActivity technische details.png)
 ![](doc/Technische details kaart.png)
 
+###API's/SDK's
+
+- Parse als Database
+- Google Maps API voor MapsActivity
+
+
 
 
 
